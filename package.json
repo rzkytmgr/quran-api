@@ -1,0 +1,20 @@
+{
+  "name": "quran-api",
+  "version": "1.0.0",
+  "description": "Public Al-Qur'an API, Murottal and tafsir",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "quran",
+    "murottal",
+    "api",
+    "recitations"
+  ],
+  "author": "rzkytmgr",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
