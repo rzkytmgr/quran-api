@@ -1,9 +1,12 @@
 const express = require("express");
-const routes = require("./routes");
+const router = require("./routes");
+require("dotenv").config();
 
 const app = express();
 
-const PORT = process.env.PORT | 3001;
+app.use("/", router);
+
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, "localhost", () => {
-  console.log(`Server Running http://localhost:${}`);
+  console.log(`Server Running http://localhost:${PORT}`);
 });
