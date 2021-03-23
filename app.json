@@ -1,0 +1,7 @@
+{
+    "name": "Quran API",
+    "description": "Open source Al-Qur'an API, not only quran text, this API is also equipped with audio recitation. and the audio you can change according to the voice of the Imam that you like",
+    "repository": "https://github.com/rzkytmgr/Quran-API",
+    "keywords": ["node", "express", "quran", "recitation", "API"]
+  }
+
