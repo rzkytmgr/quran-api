@@ -2,11 +2,12 @@
   "name": "quran-api",
   "version": "1.0.0",
   "description": "Public Al-Qur'an API, Murottal and tafsir",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon server/app.js",
+    "dev": "nodemon server/app.js",
+    "start": "node server/app.js",
     "test": "jest",
-    "lint": "eslint "
+    "lint": "eslint"
   },
   "keywords": [
     "quran",
@@ -15,7 +16,7 @@
     "recitations"
   ],
   "author": "rzkytmgr",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
