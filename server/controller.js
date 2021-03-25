@@ -38,7 +38,7 @@ const Controller = {
 
 		const spesificSurah = quranFinal[surah - 1];
 
-		if (surah > quranFinal.length || surah < 1) {
+		if (surah > quranFinal.length || surah < 1 || isNaN(Number(surah))) {
 			res.status(404).json({ ...error });
 		} else if (typeof spesificSurah === 'undefined') {
 			const finalData = quranFinal.map(res => {
@@ -48,7 +48,7 @@ const Controller = {
 
 			res.status(200).json({ ...success, data: [...finalData] });
 		} else {
-			if (ayah > spesificSurah.ayahs.length || ayah < 1) {
+			if (ayah > spesificSurah.ayahs.length || ayah < 1 || isNaN(Number(ayah))) {
 				res.status(404).json({ ...error });
 			} else {
 				const spesificAyah = spesificSurah.ayahs[ayah - 1];
