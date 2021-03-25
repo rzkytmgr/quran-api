@@ -26,7 +26,7 @@ const home = {
 		},
 	},
 	author: 'Rizky Aulia Tumangger | @rzkytmgr | rzkytmgr[at]gmail.com',
-	docs: '-',
+	docs: 'https://github.com/rzkytmgr/Quran-API',
 };
 
 const success = {
