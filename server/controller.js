@@ -1,7 +1,7 @@
 const { home, error, success, preBismillah } = require('../util/display');
 const imam = require('../data/imam.json');
 const quran = require('../data/quran.json');
-const { numberFormatter } = require('../util/helper');
+const { numberFormatter, filterParams } = require('../util/helper');
 
 const Controller = {
 	homeController(req, res) {
@@ -38,7 +38,7 @@ const Controller = {
 
 		const spesificSurah = quranFinal[surah - 1];
 
-		if (surah > quranFinal.length || surah < 1 || isNaN(Number(surah))) {
+		if (surah > quranFinal.length || surah < 1 || filterParams(surah)) {
 			res.status(404).json({ ...error });
 		} else if (typeof spesificSurah === 'undefined') {
 			const finalData = quranFinal.map(res => {
@@ -48,7 +48,7 @@ const Controller = {
 
 			res.status(200).json({ ...success, data: [...finalData] });
 		} else {
-			if (ayah > spesificSurah.ayahs.length || ayah < 1 || isNaN(Number(ayah))) {
+			if (ayah > spesificSurah.ayahs.length || ayah < 1 || filterParams(ayah)) {
 				res.status(404).json({ ...error });
 			} else {
 				const spesificAyah = spesificSurah.ayahs[ayah - 1];
