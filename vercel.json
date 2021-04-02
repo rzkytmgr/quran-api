@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "env": {
+        "BASE_URI": "https://quran-endpoint.vercel.app"
+    },
+    "builds": [
+        {
+            "src": "server/app.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "server/app.js"
+        }
+    ]
+}
