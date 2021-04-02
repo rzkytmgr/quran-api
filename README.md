@@ -1,12 +1,25 @@
 <p align="center">
 <img alt="node-current" src="https://img.shields.io/node/v/jest">
     <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/rzkytmgr/Quran-API">
-    <img alt="GitHub" src="https://img.shields.io/github/license/rzkytmgr/Quran-API">
-    <img alt="Website" src="https://img.shields.io/website?down_message=offline&up_message=online&url=http%3A%2F%2Fquran-endpoint.herokuapp.com%2F">
+    <a href="https://github.com/rzkytmgr/Quran-API/blob/master/LICENSE">
+    	<img alt="GitHub" src="https://img.shields.io/github/license/rzkytmgr/Quran-API">
+    </a>
     <br>
-    <img alt="GitHub issues" src="https://img.shields.io/github/issues/rzkytmgr/Quran-API">
-    <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/rzkytmgr/Quran-API">
+    <a href="https://github.com/rzkytmgr/Quran-API/issues">
+    	<img alt="GitHub issues" src="https://img.shields.io/github/issues/rzkytmgr/Quran-API">
+	</a>
+    <a href="https://github.com/rzkytmgr/Quran-API/pulls">
+    	<img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/rzkytmgr/Quran-API">
+	</a>
+    <br>
+    <a href="https://quran-endpoint.vercel.app/">
+    <img alt="Website" src="https://img.shields.io/website?label=vercel&down_message=offline&up_message=online&url=https%3A%2F%2Fquran-endpoint.vercel.app%2F">
+    </a>
+    <a href="https://quran-endpoint.herokuapp.com/">
+    <img alt="Website" src="https://img.shields.io/website?label=heroku&down_message=offline&up_message=online&url=https%3A%2F%2Fquran-endpoint.herokuapp.com%2F">
+    </a>
 </p>
+
 
 <hr />
 
@@ -82,6 +95,14 @@ There are several different ways to do the installation, you can use whichever y
   you can do it with just one click. But you must have a [Heroku](http://heroku.com/) account.
 
   [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rzkytmgr/Quran-API)
+  
+  
+  
+- **Vercel Deploy**
+
+  click the deploy button below. Register your own [vercel](https://vercel.com) account
+
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Frzkytmgr%2FQuran-API)
 
 
 
