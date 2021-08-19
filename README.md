@@ -203,6 +203,22 @@ all the data in this api is obtained from several sources below
 [⬆️ Back to Top](#content)
 
 
+### Quran Fonts
+
+Some quran fonts for you projects
+
+- [PDMS Saleem QuranFont](https://www.maisfontes.com/pdms-saleem-quranfont)
+- [Al Qalam Quran Majeed](https://arabicfonts.net/fonts/al-qalam-quran-majeed-web-regular)
+- [me_quran](https://urdufonts.net/fonts/me_quran-regular)
+- [noorehidayat](https://urdufonts.net/fonts/noorehidayat-regular)
+- [Summary](http://quran.mursil.com/Web-Print-Publishing-Quran-Text-Graphics-Fonts-and-Downloads/fonts-optimized-for-quran)
+- [Arabic Fonts](https://arabicfonts.net/fonts)
+
+
+
+[⬆️ Back to Top](#content)
+
+
 
 Thank you,
 
