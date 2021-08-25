@@ -21,18 +21,21 @@
 </p>
 
 
+
 <hr />
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N02S5BX) <a href="https://trakteer.id/ruzky" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="30" style="border: 0px; height: 30px;" alt="Trakteer Saya"></a>
 
 This project is made for developers who want to develop Islamic applications. besides that this project also aims to be a charity for developers who develop applications with this API, especially me and the developers from the data sources that I get.
 
 ## Content
 
 - [Introduction](#introduction)
-
 - [Installation](#installation)
-
 - [Usage/Endpoint](#usageendpoint)
+- [Example App](#example-app)
 - [Data Resources](#data-resources)
+- [Quran Fonts](#quran-fonts)
 
 
 
@@ -114,6 +117,14 @@ There are several different ways to do the installation, you can use whichever y
 
 ### Usage/Endpoint
 
+---
+
+**Base** : https://quran-endpoint.vercel.app/
+
+**Alternative** : https://quran-endpoint.herokuapp.com/
+
+---
+
 Some of these API endpoints that you can access, start the application on your local computer or for a demo, you can go to the following link [Qur'an Endpoint](http://quran-endpoint.herokuapp.com/)
 
 - **/imam/:id**
@@ -184,6 +195,14 @@ Some of these API endpoints that you can access, start the application on your l
 
 
 [⬆️ Back to Top](#content)
+
+
+
+### Sample Apps
+
+You can get inspired and learn from the sample apps below that use this API
+
+- (Your Apps)
 
 
 
