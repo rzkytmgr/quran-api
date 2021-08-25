@@ -33,7 +33,7 @@ This project is made for developers who want to develop Islamic applications. be
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage/Endpoint](#usageendpoint)
-- [Example App](#example-app)
+- [Sample Apps](#sample-apps)
 - [Data Resources](#data-resources)
 - [Quran Fonts](#quran-fonts)
 
