@@ -1,3 +1,5 @@
+## WARNING: This branch will no longer be updated 
+
 <p align="center">
 <img alt="node-current" src="https://img.shields.io/node/v/jest">
     <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/rzkytmgr/Quran-API">
