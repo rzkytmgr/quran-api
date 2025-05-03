@@ -1,0 +1,25 @@
+{
+  "typescript": {
+    "lineWidth": 180,
+    "indentWidth": 2,
+    "useTabs": false,
+    "semiColons": "always",
+    "quoteStyle": "alwaysSingle",
+    "quoteProps": "asNeeded",
+    "newLineKind": "crlf",
+    "useBraces": "always",
+    "arrowFunction.useParentheses": "force",
+    "functionDeclaration.spaceBeforeParentheses": true
+  },
+  "json": {
+  },
+  "excludes": [
+    "**/node_modules",
+    "**/*-lock.json",
+    "**/src/db"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.0.wasm",
+    "https://plugins.dprint.dev/json-0.20.0.wasm"
+  ]
+}
