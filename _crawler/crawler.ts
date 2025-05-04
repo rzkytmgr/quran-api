@@ -47,7 +47,7 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
 
   spinner.info(`🚀 • Let's trying to crawl the qur'an surah!`);
   for (let sequence = 1; sequence <= NUMBER_QURAN_SURAH; sequence++) {
-    spinner.start(`⏳ • Crawling qur\'an surah [ ${sequence} ]`);
+    spinner.start(`⏳ • Crawling qur'an surah [ ${sequence} ]`);
 
     const alquranCloud = await furl({
       host: constants.servicesUrl.alquranCloud,
@@ -75,7 +75,7 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
     Object.entries(quranAyahCollection.translation).map(([lang], index) => quranAyahCollection.translation[lang].push(ayahFormatted[1][index]));
   }
 
-  spinner.success(`🕺 • Ay! we\'re done with qur\'an surah`);
+  spinner.success(`🕺 • Ay! we're done with qur'an surah`);
   spinner.start(`📦 • Packaging the entire quran into static database`);
   const filemeta = [{
     path: [],
@@ -109,7 +109,7 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
     data: quranSurahCollection.translation.id,
   }];
 
-  filemeta.forEach((file) => fs.writeFileSync(path.resolve('src', 'db', ...file.path, file.lang || '', file.filename), JSON.stringify(file.data), 'utf-8'));
+  filemeta.forEach((file) => fs.writeFileSync(path.resolve('src', 'db', ...file.path, file.lang || '', file.filename), JSON.stringify(file.data).replace(/\\\\/g, '\\'), 'utf-8'));
 
   spinner.success('🏁 • We\'re done! qur\'an stored in src/db folder!\n');
 };
