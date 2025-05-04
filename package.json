@@ -8,7 +8,8 @@
     "dev:format:watch": "watchexec --clear --watch . \"pnpm run dev:format\"",
     "dev:lint": "eslint .",
     "dev:watch": "tsx watch src/_server/app.ts",
-    "dev:watch:crawler": "tsx watch _crawler/crawler.ts"
+    "dev:watch:crawler": "tsx watch _crawler/crawler.ts",
+    "crawl": "tsx _crawler/crawler.ts"
   },
   "keywords": [
     "quran",
