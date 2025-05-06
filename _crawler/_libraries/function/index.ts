@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import { IPreBismillah, IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from '../../_utils/interfaces';
+import {
+  IPreBismillah,
+  IRawQuranAyah,
+  IRawQuranAyahTranslation,
+  IRawQuranSurah,
+  IRawQuranSurahTranslation,
+} from '../../_utils/interfaces';
 import { constants } from '../constants';
 
 export const utUnicodeEscapeCharacter = (text: string) => {
