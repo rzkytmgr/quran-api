@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@test/*": ["__test__/*"],
+      "@server/*": ["src/_server/*"],
+      "@api/*": ["src/_server/api/*"],
+      "@db/*": ["src/db/*"],
+      "@enum/*": ["src/enum/*"],
+      "@interface/*": ["src/interfaces/*"],
+      "@lib/*": ["src/libraries/*"],
+      "@middleware/*": ["src/middlewares/*"],
+      "@service/*": ["src/services/*"],
+      "@util/*": ["src/utils/*"],
+      "@constant/*": ["src/utils/constants/*"]
+    },
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "allowArbitraryExtensions": true,
+    "allowJs": true,
+    "inlineSourceMap": true,
+    "outDir": "./dist",
+    "removeComments": true,
+    "newLine": "crlf",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "noUnusedParameters": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "static", "src/db", "_test", "_crawler/**/*"]
+}
