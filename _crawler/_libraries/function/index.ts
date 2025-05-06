@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
-import { IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from '../../_utils/interfaces';
+import { IPreBismillah, IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from '../../_utils/interfaces';
 import { constants } from '../constants';
 
 export const utUnicodeEscapeCharacter = (text: string) => {
   return text.split('').map((char) => `\\u${('0000' + char.charCodeAt(0).toString(16)).slice(-4)}`).join('');
 };
 
-export const furl = async (option: { host: string; endpoint: string; }): Promise<unknown> => {
+export const furl = async (option: { host: string; endpoint: string; }): Promise<any> => {
   const requestHeaders = {
     ...constants.requestHeaders,
     Origin: option.host,
@@ -21,6 +21,16 @@ export const furl = async (option: { host: string; endpoint: string; }): Promise
 
   return response.data;
 };
+
+export const preBismillahStructureFormatter = (response: any): IPreBismillah[] => [{
+  text: utUnicodeEscapeCharacter(response.deprecatedEndpoint.data.preBismillah.text.ar) as string,
+  translation: response.deprecatedEndpoint.data.preBismillah.translation.id as string,
+  transliteration: response.deprecatedEndpoint.data.preBismillah.text.read as string,
+}, {
+  text: utUnicodeEscapeCharacter(response.deprecatedEndpoint.data.preBismillah.text.ar) as string,
+  translation: response.deprecatedEndpoint.data.preBismillah.translation.en as string,
+  transliteration: response.deprecatedEndpoint.data.preBismillah.text.read as string,
+}];
 
 export const ayahStructureFormatter = (response: any): [{ surah: number; ayah: IRawQuranAyah[]; }, { surah: number; ayah: IRawQuranAyahTranslation[]; }[]] => [{
   surah: response.deprecatedEndpoint.data.number as number,
