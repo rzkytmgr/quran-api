@@ -19,7 +19,6 @@ export interface IRawQuranAyahTranslation {
     quran: number;
     surah: number;
   };
-  quranSequence: number;
   transliteration: string;
   translation: string;
   tafsir: null | string;

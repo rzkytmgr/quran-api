@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios';
 import { IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from '../../_utils/interfaces';
 import { constants } from '../constants';
@@ -59,8 +60,8 @@ export const ayahStructureFormatter = (response: any): [{ surah: number; ayah: I
       quran: response.alquranCloud.data[0].ayahs[sequence].number as number,
       surah: response.alquranCloud.data[0].ayahs[sequence].numberInSurah as number,
     },
-    transliteration: response.ministryOfReligionID.data[sequence].latin,
-    translation: data.text.read,
+    transliteration: data.text.read,
+    translation: response.alquranCloud.data[0].ayahs[sequence].text,
     tafsir: null,
   })),
 }]];
