@@ -52,3 +52,9 @@ export interface IRawQuranSurahTranslation {
   translation: string;
   tafsir: string | null;
 }
+
+export interface IPreBismillah {
+  text: string;
+  translation: string;
+  transliteration: string;
+}

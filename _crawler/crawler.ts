@@ -2,8 +2,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yoctoSpinner from 'yocto-spinner';
 import { constants } from './_libraries/constants';
-import { ayahStructureFormatter, furl, surahStructureFormatter } from './_libraries/function';
-import { IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from './_utils/interfaces';
+import { ayahStructureFormatter, furl, preBismillahStructureFormatter, surahStructureFormatter } from './_libraries/function';
+import { IPreBismillah, IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from './_utils/interfaces';
 
 const initializeStaticDatabaseCrawler = async (): Promise<void> => {
   const spinner = yoctoSpinner().start('🕷️ • Crawling qur\'an from the listed sources');
@@ -28,6 +28,8 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
       [key: string]: IRawQuranSurahTranslation[];
     };
   };
+
+  const preBismillahText: { [key: string]: IPreBismillah | Record<string, unknown>; } = {};
 
   const quranAyahCollection: AyahCollection = {
     collection: [],
@@ -65,8 +67,14 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
     });
 
     const serviceResponses = { alquranCloud, deprecatedEndpoint, ministryOfReligionID };
+    const preBismillahFormatted = deprecatedEndpoint.data.preBismillah && Object.keys(preBismillahText).length === 0 ? preBismillahStructureFormatter(serviceResponses) : null;
     const surahFormatted = surahStructureFormatter(serviceResponses);
     const ayahFormatted = ayahStructureFormatter(serviceResponses);
+
+    if (preBismillahFormatted !== null) {
+      preBismillahText['id'] = preBismillahFormatted[0];
+      preBismillahText['en'] = preBismillahFormatted[1];
+    }
 
     quranSurahCollection.collection.push(surahFormatted[0]);
     Object.entries(quranSurahCollection.translation).map(([lang], index) => quranSurahCollection.translation[lang].push(surahFormatted[1][index]));
@@ -107,6 +115,16 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
     lang: 'id',
     filename: 'EntireQuranAyahTranslation.db.json',
     data: quranAyahCollection.translation.id,
+  }, {
+    path: ['_translation', 'lang'],
+    lang: 'id',
+    filename: 'PreBismillah.db.json',
+    data: preBismillahText.id,
+  }, {
+    path: ['_translation', 'lang'],
+    lang: 'en',
+    filename: 'PreBismillah.db.json',
+    data: preBismillahText.en,
   }];
 
   filemeta.forEach((file) => fs.writeFileSync(path.resolve('src', 'db', ...file.path, file.lang || '', file.filename), JSON.stringify(file.data).replace(/\\\\/g, '\\'), 'utf-8'));
