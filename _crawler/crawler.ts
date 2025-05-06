@@ -106,7 +106,7 @@ const initializeStaticDatabaseCrawler = async (): Promise<void> => {
     path: ['_translation', 'lang'],
     lang: 'id',
     filename: 'EntireQuranAyahTranslation.db.json',
-    data: quranSurahCollection.translation.id,
+    data: quranAyahCollection.translation.id,
   }];
 
   filemeta.forEach((file) => fs.writeFileSync(path.resolve('src', 'db', ...file.path, file.lang || '', file.filename), JSON.stringify(file.data).replace(/\\\\/g, '\\'), 'utf-8'));
