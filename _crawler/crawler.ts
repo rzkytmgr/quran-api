@@ -2,8 +2,19 @@ import fs from 'node:fs';
 import path from 'node:path';
 import yoctoSpinner from 'yocto-spinner';
 import { constants } from './_libraries/constants';
-import { ayahStructureFormatter, furl, preBismillahStructureFormatter, surahStructureFormatter } from './_libraries/function';
-import { IPreBismillah, IRawQuranAyah, IRawQuranAyahTranslation, IRawQuranSurah, IRawQuranSurahTranslation } from './_utils/interfaces';
+import {
+  ayahStructureFormatter,
+  furl,
+  preBismillahStructureFormatter,
+  surahStructureFormatter,
+} from './_libraries/function';
+import {
+  IPreBismillah,
+  IRawQuranAyah,
+  IRawQuranAyahTranslation,
+  IRawQuranSurah,
+  IRawQuranSurahTranslation,
+} from './_utils/interfaces';
 
 const initializeStaticDatabaseCrawler = async (): Promise<void> => {
   const spinner = yoctoSpinner().start('🕷️ • Crawling qur\'an from the listed sources');

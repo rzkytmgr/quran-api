@@ -9,7 +9,12 @@
     "newLineKind": "crlf",
     "useBraces": "always",
     "arrowFunction.useParentheses": "force",
-    "functionDeclaration.spaceBeforeParentheses": true
+    "functionDeclaration.spaceBeforeParentheses": true,
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain",
+    "moduleDeclaration.bracePosition": "maintain",
+    "importDeclaration.forceMultiLine": "whenMultiple",
+    "exportDeclaration.forceMultiLine": "whenMultiple"
   },
   "json": {
   },
