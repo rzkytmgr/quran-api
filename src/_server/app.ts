@@ -36,3 +36,5 @@ const server = http.createServer(app);
 server.listen(constants.APP_PORT, () => {
   console.info(`[🚀] Server Started on ${constants.APP_HOST}:${constants.APP_PORT}`);
 });
+
+export default app;

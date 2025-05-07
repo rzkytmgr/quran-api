@@ -3,3 +3,4 @@ format
 .env
 .vscode
 dist
+.vercel
