@@ -2,7 +2,6 @@
   "version": 2,
   "buildCommand": "pnpm dev:test && pnpm dev:lint && pnpm build",
   "installCommand": "pnpm install",
-  "outputDirectory": "dist",
   "builds": [
     {
       "src": "dist/src/_server/app.js",
