@@ -7,7 +7,6 @@ import {
 const cached = new Map();
 const caching = (req: Request, res: Response, next: NextFunction) => {
   const cachedResponse = cached.get(req.originalUrl || req.url);
-  console.log(req.ext.constants.NOT_CACHED_PATH.includes(req.originalUrl));
   if (cachedResponse && cachedResponse.ttl > Date.now()) {
     return res.status(cachedResponse.status).json(JSON.parse(cachedResponse.body));
   } else {
