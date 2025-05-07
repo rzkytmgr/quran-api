@@ -1,0 +1,37 @@
+#!/bin/sh
+echo "\n\033[33m👮 Checking your commit message right now!\033[0m"
+
+commit_message=$(cat $1)
+
+prefix_regex="^(feat|fix|chore|docs|style|refactor|test|perf|ci)"
+suffix_regex="\(.*\):(.*)$"
+
+if ! echo $commit_message | grep -Eq "$prefix_regex$suffix_regex"; then
+  echo "\n\033[31m🚨 Sorry, cannot continue the commit."
+  echo "you must follow commit message rules!\033[0m\n"
+  exit 1
+fi
+
+commit_prefix=$(echo $commit_message | grep -oE "$prefix_regex")
+
+if [ $commit_prefix = 'feat' ]; then
+  commit_emoji='✨'
+elif [ $commit_prefix = 'fix' ]; then
+  commit_emoji='🐛'
+elif [ $commit_prefix = 'chore' ]; then
+  commit_emoji='🔧'
+elif [ $commit_prefix = 'docs' ]; then
+  commit_emoji='📝'
+elif [ $commit_prefix = 'style' ]; then
+  commit_emoji='🎨'
+elif [ $commit_prefix = 'refactor' ]; then
+  commit_emoji='♻️'
+elif [ $commit_prefix = 'test' ]; then
+  commit_emoji='✅'
+elif [ $commit_prefix = 'perf' ]; then
+  commit_emoji='⚡'
+elif [ $commit_prefix = 'ci' ]; then
+  commit_emoji='🤖'
+fi
+
+echo "$commit_emoji $commit_message" > $1

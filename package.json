@@ -4,15 +4,17 @@
   "description": "Static Quran API data",
   "main": "./dist/src/_server/app.js",
   "scripts": {
-    "dev:format": "dprint fmt --config dprint.config.json",
+    "dev:format": "dprint fmt --config formatter.config.json",
     "dev:format:watch": "watchexec --clear --watch . -e ts,json \"pnpm run dev:format\"",
     "dev:watch:build": "watchexec --clear --watch . -e ts,json \"pnpm build\"",
     "dev:lint": "eslint .",
     "dev:watch": "tsx watch src/_server/app.ts",
     "dev:watch:crawler": "tsx watch _crawler/crawler.ts",
+    "dev:test": "vitest --config vitest.config.mjs",
     "crawl": "tsx _crawler/crawler.ts",
     "build": "tsc --project tsconfig.json && resolve-tspaths",
-    "start": "node ."
+    "start": "node .",
+    "prepare": "husky"
   },
   "keywords": [
     "quran",
@@ -48,10 +50,12 @@
     "@types/ramda": "^0.30.2",
     "dprint": "^0.49.1",
     "eslint": "^9.26.0",
+    "husky": "^9.1.7",
     "resolve-tspaths": "^0.8.23",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1"
+    "typescript-eslint": "^8.31.1",
+    "vitest": "^3.1.3"
   }
 }

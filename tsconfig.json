@@ -33,5 +33,5 @@
     "noUnusedParameters": false
   },
   "include": ["src"],
-  "exclude": ["node_modules", "static", "src/db", "_test", "_crawler/**/*"]
+  "exclude": ["node_modules", "static", "src/db", "_test", "_crawler/**/*", "src/interfaces"]
 }
