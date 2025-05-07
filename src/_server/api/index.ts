@@ -26,7 +26,6 @@ router.use(Wrapper((req: Request, res: Response, next: NextFunction) => {
 }));
 
 router.use((error: ErrorHandler, req: Request, res: Response, next: NextFunction) => {
-  console.log(error);
   res.status(error.code || 500).json({
     success: false,
     message: error.message,
