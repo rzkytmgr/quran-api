@@ -5,9 +5,9 @@ import { pathToFileURL } from 'node:url';
 const jsonResolver = async <T>(filename: string | string[]): Promise<T> => {
   const filePath = path.resolve('src', 'db', `${Array.isArray(filename) ? filename.join('/') : filename}.db.json`);
   const fileUrl = pathToFileURL(filePath);
-  
+
   const data = await import(fileUrl.href, {
-    assert: { type: 'json' }
+    assert: { type: 'json' },
   });
 
   return data.default;
