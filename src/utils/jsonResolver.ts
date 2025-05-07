@@ -1,14 +1,16 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { pathToFileURL } from 'node:url';
 
 /** This function used for resolve JSON file with imutable behaviour */
 const jsonResolver = async <T>(filename: string | string[]): Promise<T> => {
-  const data = await import(path.resolve('src', 'db', `${Array.isArray(filename) ? filename.join('/') : filename}.db.json`), {
-    assert: {
-      type: 'json',
-    },
+  const filePath = path.resolve('src', 'db', `${Array.isArray(filename) ? filename.join('/') : filename}.db.json`);
+  const fileUrl = pathToFileURL(filePath);
+
+  const data = await import(fileUrl.href, {
+    assert: { type: 'json' },
   });
-  return JSON.parse(JSON.stringify(data.default));
+
+  return data.default;
 };
 
 export { jsonResolver };
