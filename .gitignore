@@ -4,3 +4,4 @@ format
 .vscode
 dist
 .vercel
+*-lock.yaml

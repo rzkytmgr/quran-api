@@ -1,0 +1,35 @@
+name: Vercel Release
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  Merge-Master-to-Vercel-Release:
+    runs-on: ubuntu-latest
+    env:
+      GHBUSER: ${{ secrets.GHBUSER }}
+      GHBEMAIL: ${{ secrets.GHBEMAIL }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GHBUSER"
+          git config user.email "$GHBEMAIL"
+
+      - name: Merge master into release/vercel
+        run: |
+          git checkout release/vercel
+          git merge origin/master -m "ci(release/vercel): auto-merge from master to release/vercel"
+
+      - name: Push to release/vercel
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: release/vercel
