@@ -46,7 +46,7 @@ Or, you can install the app using vercel service. Just one click away on button 
 
 ## How to Use
 Here we are using live demo link to test the endpoints on the API. Here's the demo link we'll use *[staticquran.vercel.app](https://staticquran.vercel.app)*.
-> [!TIPS]
+> [!TIP]  
 > If you want to change the language, you can add `?lang=en|id` query parameter in the endpoint, default value is `en`. same with you want to change recitation audio, you can simply add `?reciter={reciterId}` query parameter in the endpoint. You can see below list of allowed reciters id. Here an example how to change the language and change the recitation audio.
 > 
 > **GET** [/api/v1/surah/70?lang=id&reciter=29](https://staticquran.vercel.app/api/v1/surah/70?lang=id&reciter=29) - this endpoint will return surah Al-Ma'arij with **Bahasa Indonesia** translation and **Audio Recitation Syaikh Ahmed ibn Ali Al Ajamy**.
@@ -342,7 +342,7 @@ Thank you for all of services above, cause of them this project can released. Ma
 
 ## Contribution
 Feel free to contribute create issue or create PRs on this repository.
-> [!TIPS]
+> [!TIP]  
 > Small tips when you trying to do a commit on this repository. There is a commit message format you must follow. See the message format below,
 > 
 > Format,
