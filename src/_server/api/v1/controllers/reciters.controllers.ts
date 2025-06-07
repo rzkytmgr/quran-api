@@ -1,13 +1,6 @@
 import { ErrorHandler } from '@lib/errors/_errors';
-import {
-  getEntireRecitersService,
-  getSpesificReciterService,
-} from '@service/reciter.services';
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { getEntireRecitersService, getSpesificReciterService } from '@service/reciter.services';
+import { NextFunction, Request, Response } from 'express';
 
 const getEntireRecitersController = async (req: Request, res: Response, next: NextFunction) => {
   const getEntireReciters = await getEntireRecitersService();
@@ -44,7 +37,4 @@ const getSpesificReciterController = async (req: Request, res: Response, next: N
   });
 };
 
-export {
-  getEntireRecitersController,
-  getSpesificReciterController,
-};
+export { getEntireRecitersController, getSpesificReciterController };

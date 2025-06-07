@@ -1,8 +1,4 @@
-import {
-  describe,
-  expect,
-  test,
-} from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { Wrapper } from '../../src/utils/wrapper';
 
 describe('controller wrapper', () => {

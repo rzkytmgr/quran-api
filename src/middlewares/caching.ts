@@ -1,8 +1,4 @@
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 const cached = new Map();
 const caching = (req: Request, res: Response, next: NextFunction) => {

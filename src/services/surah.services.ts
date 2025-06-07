@@ -1,47 +1,48 @@
-import {
-  aggregator,
-  jsonResolver,
-  padNumber,
-} from '@util/_utils';
+import { aggregator, jsonResolver, padNumber } from '@util/_utils';
 import { constants } from '@util/constants/_constants';
-import {
-  IPreBismillah,
-  IQuranSurah,
-  IRawQuranSurah,
-  IRawQuranSurahTranslation,
-} from 'src/interfaces/_interfaces';
+import { IPreBismillah, IQuranSurah, IRawQuranSurah, IRawQuranSurahTranslation, IServiceQuery } from 'src/interfaces/_interfaces';
 import { getSpesificSurahAyahService } from './ayah.services';
 import { getSpesificReciterService } from './reciter.services';
 
-const getEntireSurahService = async (lang: string, reciter: number) => {
-  const getQuranEntireSurah = await jsonResolver<IRawQuranSurah[]>('EntireQuranSurah');
-  const getQuranEntireSurahTranslation = await jsonResolver<IRawQuranSurahTranslation[]>(['_translation', 'lang', lang, 'EntireQuranSurahTranslation']);
-  const getSurahPreBismillah = await jsonResolver<IPreBismillah>(['_translation', 'lang', lang, 'PreBismillah']);
-  const getSpesificReciter = await getSpesificReciterService(reciter);
+/** @helper to generate recitation audio for a surah */
+const generateSurahRecitationAudio = (recitationDir: string, surahNumber: number): string => {
+  const paddedNumber = padNumber(surahNumber, 3);
+  return `${constants.SERVICE_URL.QURANICAUDIO}${recitationDir}${paddedNumber}.mp3`;
+};
 
-  const quranEntireSurah = aggregator<IQuranSurah[]>(getQuranEntireSurah, getQuranEntireSurahTranslation).map((value) => ({
-    ...value,
-    preBismillah: value.sequence === 9 ? false : getSurahPreBismillah,
-    recitation: {
-      audio: `${constants.SERVICE_URL.QURANICAUDIO}${getSpesificReciter?.folder.surah}${padNumber(value.sequence, 3)}.mp3`,
-    },
+/** @helper to check a surah has preBismillah or not */
+const shouldIncludePreBismillah = (surahSequence: number): boolean => surahSequence !== 9;
+
+/** @service get entire surah service full inclduing the recitation audio url */
+const getEntireSurahService = async (query: IServiceQuery) => {
+  const { lang, reciter } = query;
+
+  const [rawSurah, rawSurahTranslation, preBismillah, spesificReciter] = await Promise.all([
+    jsonResolver<IRawQuranSurah[]>('EntireQuranSurah'),
+    jsonResolver<IRawQuranSurahTranslation[]>(['_translation', 'lang', lang!, 'EntireQuranSurahTranslation']),
+    jsonResolver<IPreBismillah>(['_translation', 'lang', lang!, 'PreBismillah']),
+    getSpesificReciterService(reciter!),
+  ]);
+
+  const aggregatedSurah = aggregator<IQuranSurah[]>(rawSurah, rawSurahTranslation);
+  return aggregatedSurah.map((surah) => ({
+    ...surah,
+    preBismillah: shouldIncludePreBismillah(surah.sequence) ? preBismillah : false,
+    recitation: { audio: generateSurahRecitationAudio(spesificReciter!.folder.surah, surah.sequence) },
   }));
-
-  return quranEntireSurah;
 };
 
-const getSpesificSurahService = async (surahSequence: number, lang: string, reciter: number) => {
-  const getQuranEntireSurah = await getEntireSurahService(lang, reciter);
-  const getSpesificSurah = getQuranEntireSurah.find((quranSurah) => quranSurah.sequence === surahSequence) as IQuranSurah;
-  const getSpesificQuranSurahAyah = await getSpesificSurahAyahService(surahSequence, lang, reciter);
-  const formattedSurah = {
-    ...getSpesificSurah,
-    ayah: getSpesificQuranSurahAyah,
+/** @service get spesific surah service including the recitation audio url */
+const getSpesificSurahService = async (surahSequence: number, query: IServiceQuery) => {
+  const entireSurah = await getEntireSurahService(query);
+  const selectedSurah = entireSurah.find((surah) => surah.sequence === surahSequence) as IQuranSurah;
+
+  const spesificSurahAyahs = await getSpesificSurahAyahService(surahSequence, query);
+
+  return {
+    ...selectedSurah,
+    ayah: spesificSurahAyahs,
   };
-  return formattedSurah;
 };
 
-export {
-  getEntireSurahService,
-  getSpesificSurahService,
-};
+export { getEntireSurahService, getSpesificSurahService };

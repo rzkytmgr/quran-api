@@ -1,19 +1,9 @@
-import {
-  getEntireSurahService,
-  getSpesificSurahService,
-} from '@service/surah.services';
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { getEntireSurahService, getSpesificSurahService } from '@service/surah.services';
+import { NextFunction, Request, Response } from 'express';
 import { ErrorHandler } from '@lib/errors/_errors';
 
 const getEntireSurahController = async (req: Request, res: Response, next: NextFunction) => {
-  const getEntireSurah = await getEntireSurahService(
-    req.query.lang as unknown as string,
-    req.query.reciter as unknown as number,
-  );
+  const getEntireSurah = await getEntireSurahService(req.query);
 
   return res.status(200).json({
     success: true,
@@ -25,8 +15,7 @@ const getEntireSurahController = async (req: Request, res: Response, next: NextF
 const getSpesificSurahController = async (req: Request, res: Response, next: NextFunction) => {
   const getSpesificSurah = await getSpesificSurahService(
     req.params.surah as unknown as number,
-    req.query.lang as unknown as string,
-    req.query.reciter as unknown as number,
+    req.query,
   );
 
   if (!getSpesificSurah) {
@@ -50,8 +39,7 @@ const getSpesificSurahController = async (req: Request, res: Response, next: Nex
 const getSpesificSurahAyahController = async (req: Request, res: Response, next: NextFunction) => {
   const getSpesificSurah = await getSpesificSurahService(
     req.params.surah as unknown as number,
-    req.query.lang as unknown as string,
-    req.query.reciter as unknown as number,
+    req.query,
   );
 
   if (!getSpesificSurah) {
@@ -90,8 +78,4 @@ const getSpesificSurahAyahController = async (req: Request, res: Response, next:
   });
 };
 
-export {
-  getEntireSurahController,
-  getSpesificSurahAyahController,
-  getSpesificSurahController,
-};
+export { getEntireSurahController, getSpesificSurahAyahController, getSpesificSurahController };

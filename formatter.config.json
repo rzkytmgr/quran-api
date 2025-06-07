@@ -13,11 +13,10 @@
     "module.sortImportDeclarations": "maintain",
     "module.sortExportDeclarations": "maintain",
     "moduleDeclaration.bracePosition": "maintain",
-    "importDeclaration.forceMultiLine": "whenMultiple",
-    "exportDeclaration.forceMultiLine": "whenMultiple"
+    "importDeclaration.forceMultiLine": "never",
+    "exportDeclaration.forceMultiLine": "never"
   },
-  "json": {
-  },
+  "json": {},
   "excludes": [
     "**/node_modules",
     "**/*-lock.json",

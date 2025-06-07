@@ -1,8 +1,4 @@
-import {
-  describe,
-  expect,
-  test,
-} from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { aggregator } from '../../src/utils/aggregator';
 
 describe('aggregate array or object', () => {

@@ -1,19 +1,10 @@
-import {
-  getEntireAyahService,
-  getSpesificAyahService,
-  getSpesificSurahAyahService,
-} from '@service/ayah.services';
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { getEntireAyahService, getSpesificAyahService, getSpesificSurahAyahService } from '@service/ayah.services';
+import { NextFunction, Request, Response } from 'express';
 
 const getSpesificAyahController = async (req: Request, res: Response, next: NextFunction) => {
   const getSpesificAyah = await getSpesificAyahService(
     req.params.ayah as unknown as number,
-    req.query.lang as unknown as string,
-    req.query.reciter as unknown as number,
+    req.query,
   );
 
   return res.status(200).json({
@@ -28,8 +19,7 @@ const getRandomAyahController = async (req: Request, res: Response, next: NextFu
 
   const getSpesificAyah = await getSpesificAyahService(
     randomAyahSequence,
-    req.query.lang as unknown as string,
-    req.query.reciter as unknown as number,
+    req.query,
   );
 
   return res.status(200).json({
@@ -39,7 +29,4 @@ const getRandomAyahController = async (req: Request, res: Response, next: NextFu
   });
 };
 
-export {
-  getRandomAyahController,
-  getSpesificAyahController,
-};
+export { getRandomAyahController, getSpesificAyahController };

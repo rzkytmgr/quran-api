@@ -1,9 +1,6 @@
 import { EValidatorType } from '@enum/_enum';
 import { Logger } from 'winston';
-import {
-  z,
-  ZodSchema,
-} from 'zod';
+import { z, ZodSchema } from 'zod';
 import { IPreBismillah } from './_interfaces';
 
 export type IReciters = Omit<IRawReciters, 'folder'>;
@@ -80,6 +77,11 @@ export interface IQuranSurah {
     audio: string;
   };
   ayah?: Array<IQuranAyah>;
+}
+
+export interface IServiceQuery {
+  lang?: string;
+  reciter?: number;
 }
 
 export interface IConstants {

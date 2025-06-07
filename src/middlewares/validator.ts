@@ -3,11 +3,7 @@ import { EValidatorType } from '@enum/_enum';
 import { IValidatorOptions } from '@interface/_interfaces';
 import { ErrorHandler } from '@lib/errors/_errors';
 import { Wrapper } from '@util/wrapper';
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 const validator = (options: IValidatorOptions | IValidatorOptions[]) =>
   Wrapper((req: Request, res: Response, next: NextFunction) => {

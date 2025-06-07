@@ -1,8 +1,4 @@
-import {
-  describe,
-  expect,
-  test,
-} from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { padNumber } from '../../src/utils/padNumber';
 
 describe('number zero pad formatter', () => {
