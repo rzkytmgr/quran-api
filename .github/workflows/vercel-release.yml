@@ -47,6 +47,10 @@ jobs:
           pnpm dev:format
           pnpm dev:lint
           pnpm build
+      
+      - name: Additional Git Commands
+        run: |
+          git add -f dist/
 
       - name: Push to release/vercel
         uses: ad-m/github-push-action@master
