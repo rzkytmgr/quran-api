@@ -51,6 +51,7 @@ jobs:
       - name: Additional Git Commands
         run: |
           git add -f dist/
+          git commit -m "ci(release/vercel): builds"
 
       - name: Push to release/vercel
         uses: ad-m/github-push-action@master
