@@ -3,7 +3,6 @@ import { router as apiRoutes } from '@server/api';
 import { constants } from '@util/constants/_constants';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
-import http from 'http';
 
 const app = express();
 
@@ -23,11 +22,6 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).send(constants.MESSAGE_PAGE_NOT_FOUND);
-});
-
-const server = http.createServer(app);
-server.listen(constants.APP_PORT, () => {
-  console.info(`[🚀] Server Started on ${constants.APP_HOST}:${constants.APP_PORT}`);
 });
 
 export default app;
