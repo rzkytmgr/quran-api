@@ -21,7 +21,7 @@ const constants: IConstants = {
     QURANICAUDIO: 'https://download.quranicaudio.com',
   },
   NOT_CACHED_PATH: [
-    '/api/v1/ayah/random',
+    '/v1/ayah/random',
   ],
 };
 
