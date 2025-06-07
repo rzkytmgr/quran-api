@@ -3,8 +3,6 @@ echo "\n\033[33m🦸 start pre-commit commands!\033[0m"
 
 pnpm dev:format
 
-git add -A
-
 pnpm dev:test
 
 pnpm dev:lint
