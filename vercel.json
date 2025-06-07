@@ -4,14 +4,14 @@
   "installCommand": "pnpm install",
   "builds": [
     {
-      "src": "dist/src/_server/app.js",
+      "src": "dist/src/_server/server.js",
       "use": "@vercel/node"
     }
   ],
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "dist/src/_server/app.js"
+      "destination": "dist/src/_server/server.js"
     }
   ]
 }

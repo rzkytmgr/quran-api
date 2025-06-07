@@ -39,7 +39,7 @@ const getSpesificSurahService = async (surahSequence: number, query: IServiceQue
 
   const spesificSurahAyahs = await getSpesificSurahAyahService(surahSequence, query);
 
-  return {
+  return !selectedSurah ? null : {
     ...selectedSurah,
     ayah: spesificSurahAyahs,
   };

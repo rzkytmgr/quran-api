@@ -5,12 +5,6 @@ pnpm dev:format
 
 git add -A
 
-if ! git diff --cached --quite; then
-  echo "Format command change some file!"
-else
-  echo "No changes on formatting!"
-fi
-
 pnpm dev:test
 
 pnpm dev:lint
