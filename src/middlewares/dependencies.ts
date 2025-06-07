@@ -4,11 +4,7 @@ import path from 'node:path';
 import { logger } from '@lib/logger/_logger';
 import { constants } from '@util/constants/_constants';
 import { getEntireRecitersService } from '@service/reciter.services';
-import {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import { NextFunction, Request, Response } from 'express';
 
 const dependencies = async (req: Request, response: Response, next: NextFunction) => {
   if (!constants.META_AVAILABLE_LANGUAGE.length) {

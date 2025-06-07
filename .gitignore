@@ -5,3 +5,4 @@ format
 dist
 .vercel
 *-lock.yaml
+dprint.json

@@ -2,12 +2,7 @@ import { Wrapper } from '@util/wrapper';
 import { caching } from '@middleware/caching';
 import { router as v1 } from '@server/api/v1';
 import { ErrorHandler } from '@lib/errors/_errors';
-import {
-  NextFunction,
-  Request,
-  Response,
-  Router,
-} from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 const router = Router();
 
 router.use(caching as () => void);

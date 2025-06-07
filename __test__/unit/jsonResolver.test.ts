@@ -1,8 +1,4 @@
-import {
-  describe,
-  expect,
-  test,
-} from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { jsonResolver } from '../../src/utils/jsonResolver';
 
 describe('JSON module resolver', () => {

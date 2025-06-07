@@ -10,6 +10,7 @@ export default tslint.config([
       'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off'
     },
     ignores: ['node_modules', 'dist', 'db'],
   },

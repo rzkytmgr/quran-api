@@ -1,15 +1,8 @@
-import {
-  dependencies,
-  logging,
-} from '@middleware/_middlewares';
+import { dependencies, logging } from '@middleware/_middlewares';
 import { router as apiRoutes } from '@server/api';
 import { constants } from '@util/constants/_constants';
 import cors from 'cors';
-import express, {
-  NextFunction,
-  Request,
-  Response,
-} from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import http from 'http';
 
 const app = express();

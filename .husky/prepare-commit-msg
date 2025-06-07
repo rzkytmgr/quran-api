@@ -1,37 +1,31 @@
 #!/bin/sh
-echo "\n\033[33m👮 Checking your commit message right now!\033[0m"
 
-commit_message=$(cat $1)
+printf "\n\033[33m👮 Checking your commit message right now!\033[0m\n"
+
+commit_message=$(cat "$1")
 
 prefix_regex="^(feat|fix|chore|docs|style|refactor|test|perf|ci)"
-suffix_regex="\(.*\):(.*)$"
+suffix_regex="\([^)]+\): .+"
 
-if ! echo $commit_message | grep -Eq "$prefix_regex$suffix_regex"; then
-  echo "\n\033[31m🚨 Sorry, cannot continue the commit."
-  echo "you must follow commit message rules!\033[0m\n"
+if ! echo "$commit_message" | grep -Eq "$prefix_regex$suffix_regex"; then
+  printf "\n\033[31m🚨 Sorry, cannot continue the commit.\n"
+  printf "You must follow commit message rules! (e.g. feat(auth): add login)\033[0m\n\n"
   exit 1
 fi
 
-commit_prefix=$(echo $commit_message | grep -oE "$prefix_regex")
+commit_prefix=$(echo "$commit_message" | grep -oE "$prefix_regex")
 
-if [ $commit_prefix = 'feat' ]; then
-  commit_emoji='✨'
-elif [ $commit_prefix = 'fix' ]; then
-  commit_emoji='🐛'
-elif [ $commit_prefix = 'chore' ]; then
-  commit_emoji='🔧'
-elif [ $commit_prefix = 'docs' ]; then
-  commit_emoji='📝'
-elif [ $commit_prefix = 'style' ]; then
-  commit_emoji='🎨'
-elif [ $commit_prefix = 'refactor' ]; then
-  commit_emoji='♻️'
-elif [ $commit_prefix = 'test' ]; then
-  commit_emoji='✅'
-elif [ $commit_prefix = 'perf' ]; then
-  commit_emoji='⚡'
-elif [ $commit_prefix = 'ci' ]; then
-  commit_emoji='🤖'
-fi
+case "$commit_prefix" in
+  feat)     commit_emoji="✨" ;;
+  fix)      commit_emoji="🐛" ;;
+  chore)    commit_emoji="🔧" ;;
+  docs)     commit_emoji="📝" ;;
+  style)    commit_emoji="🎨" ;;
+  refactor) commit_emoji="♻️" ;;
+  test)     commit_emoji="✅" ;;
+  perf)     commit_emoji="⚡" ;;
+  ci)       commit_emoji="🤖" ;;
+  *)        commit_emoji="" ;;
+esac
 
-echo "$commit_emoji $commit_message" > $1
+echo "$commit_emoji $commit_message" > "$1"
