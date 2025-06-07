@@ -2,8 +2,19 @@
 echo "\n\033[33m🦸 start pre-commit commands!\033[0m"
 
 pnpm dev:format
+
+git add -A
+
+if ! git diff --cached --quite; then
+  echo "Format command change some file!"
+else
+  echo "No changes on formatting!"
+fi
+
 pnpm dev:test
+
 pnpm dev:lint
+
 pnpm build
 
 echo "\n\033[33m🫡 You're allowed sir!\033[0m"
