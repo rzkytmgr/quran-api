@@ -51,7 +51,11 @@ jobs:
       - name: Additional Git Commands
         run: |
           git add -f dist/
-          git diff --quite || git commit -m "ci(release/vercel): builds"
+          if ! git diff --quite dist/; then
+            git commit -m "ci(release/vercel): builds"
+          else
+            echo "No changes in dist directory"
+          fi
 
       - name: Push to release/vercel
         uses: ad-m/github-push-action@master
