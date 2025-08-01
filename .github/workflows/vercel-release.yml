@@ -51,7 +51,7 @@ jobs:
       - name: Additional Git Commands
         run: |
           git add -f dist/
-          if ! git diff --quite dist/; then
+          if ! git diff --quiet dist/; then
             git commit -m "ci(release/vercel): builds"
           else
             echo "No changes in dist directory"
