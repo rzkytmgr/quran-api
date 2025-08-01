@@ -1,0 +1,43 @@
+name: NodeJS version variation testing
+
+on:
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+
+jobs:
+  matrix-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
+    
+    container: node:${{ matrix.node-version }}
+    
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+    
+      - name: nodejs version
+        run: |
+          node -v
+
+      - name: install pnpm
+        run: |
+          npm install -g pnpm
+      
+      - name: install dependencies
+        run: |
+          pnpm install
+
+      - name: testing
+        run: |
+          pnpm dev:test
+          pnpm dev:format
+          pnpm dev:lint
+          pnpm build
+          echo "All tests passed!"
