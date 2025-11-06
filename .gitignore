@@ -4,5 +4,3 @@ format
 .vscode
 dist
 .vercel
-*-lock.yaml
-dprint.json
