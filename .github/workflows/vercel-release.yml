@@ -2,8 +2,8 @@ name: Vercel Release
 
 on:
   push:
-    branches:
-      - 'master'
+    tags:
+      - 'v*'
 
 jobs:
   Merge-Master-to-Vercel-Release:
