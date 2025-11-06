@@ -1,4 +1,3 @@
-
 import { IConstants } from 'src/interfaces/_interfaces';
 
 const constants: IConstants = {
