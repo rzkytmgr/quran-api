@@ -4,7 +4,7 @@
   "description": "Static Quran API data",
   "main": "./dist/src/_server/server.js",
   "scripts": {
-    "dev:format": "dprint fmt --config formatter.config.json",
+    "dev:format": "dprint fmt --config dprint.json",
     "dev:format:watch": "watchexec --clear --watch . -e ts,json \"pnpm run dev:format\"",
     "dev:watch:build": "watchexec --clear --watch . -e ts,json \"pnpm build\"",
     "dev:lint": "eslint .",
