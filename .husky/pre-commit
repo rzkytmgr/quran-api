@@ -2,7 +2,14 @@
 echo "start pre-commit commands!"
 
 pnpm dev:format
-git diff --name-only --cached | xargs git add
+
+git diff --name-only --cached | while read file; do
+  if [ -f "$file" ]; then
+    git add "$file"
+  else
+    git rm --cached "$file" >/dev/null 2>&1 || true
+  fi
+done
 
 pnpm dev:test
 
