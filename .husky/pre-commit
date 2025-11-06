@@ -1,7 +1,8 @@
 #!/bin/sh
-echo "\n\033[33m🦸 start pre-commit commands!\033[0m"
+echo "start pre-commit commands!"
 
 pnpm dev:format
+git diff --name-only --cached | xargs git add
 
 pnpm dev:test
 
@@ -9,4 +10,4 @@ pnpm dev:lint
 
 pnpm build
 
-echo "\n\033[33m🫡 You're allowed sir!\033[0m"
+echo "You're allowed sir!"
