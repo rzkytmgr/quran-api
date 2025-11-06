@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
+
 import { IConstants } from 'src/interfaces/_interfaces';
 
-dotenv.config();
 const constants: IConstants = {
   APP_HOST: process.env.APP_HOST as string,
   APP_PORT: process.env.APP_PORT as string,

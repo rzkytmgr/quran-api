@@ -14,7 +14,7 @@
     "dev:vercel": "vercel dev --listen 5000 -d -A vercel.json",
     "crawl": "tsx _crawler/crawler.ts",
     "build": "tsc --project tsconfig.json && resolve-tspaths",
-    "start": "node .",
+    "start": "node --env-file=.env.example .",
     "prepare": "husky"
   },
   "keywords": [
@@ -36,7 +36,6 @@
   "dependencies": {
     "axios": "^1.9.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "ramda": "^0.30.1",
     "winston": "^3.17.0",
