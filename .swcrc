@@ -1,0 +1,43 @@
+{
+    "jsc": {
+        "parser":{
+            "syntax": "typescript",
+            "tsx": false,
+            "dynamicImport": true
+        },
+        "target": "es2020",
+        "loose": false,
+        "transform": {
+            "legacyDecorator": false,
+            "decoratorMetadata": false
+        },
+        "keepClassNames": true,
+        "baseUrl": "./",
+        "paths": {
+            "@test/*": ["__test__/*"],
+            "@server/*": ["src/_server/*"],
+            "@api/*": ["src/_server/api/*"],
+            "@db/*": ["src/db/*"],
+            "@enum/*": ["src/enum/*"],
+            "@interface/*": ["src/interfaces/*"],
+            "@lib/*": ["src/libraries/*"],
+            "@middleware/*": ["src/middlewares/*"],
+            "@service/*": ["src/services/*"],
+            "@util/*": ["src/utils/*"],
+            "@constant/*": ["src/utils/constants/*"]
+        },
+        "externalHelpers": false,
+        "preserveAllComments": false
+    },
+    "module": {
+        "resolveFully": true,
+        "outFileExtension": "js",
+        "type": "es6",
+        "strict": true,
+        "ignoreDynamic": false
+    },
+    "sourceMaps": false,
+    "minify": true,
+    "exclude": ["node_modules", "dist", ".husky", ".github", "_crawler", "static", "_test_"],
+    "test": ["src"]
+}
