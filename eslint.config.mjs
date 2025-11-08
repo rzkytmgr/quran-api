@@ -2,6 +2,9 @@ import eslint from '@eslint/js';
 import tslint from 'typescript-eslint';
 
 export default tslint.config([
+  {
+    ignores: ['node_modules/**', 'dist/**', 'src/db/**'],
+  },
   ...tslint.configs.recommended,
   eslint.configs.recommended,
   {
@@ -12,6 +15,5 @@ export default tslint.config([
       '@typescript-eslint/no-namespace': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
     },
-    ignores: ['node_modules', 'dist', 'db'],
   },
 ]);
