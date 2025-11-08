@@ -32,7 +32,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "license": "ISC",
+  "license": "MIT",
   "packageManager": "pnpm@10.10.0",
   "type": "module",
   "dependencies": {
