@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "master"
+    groups:
+      alldependencies:
+        patterns:
+          - "*"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "npm"
+    assignees:
+      - "rzkytmgr"
+  - package-ecosystem: "docker"
+    directory: "/"
+    target-branch: "master"
+    groups:
+      alldependencies:
+        patterns:
+          - "*"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "docker"
+    assignees:
+      - "rzkytmgr"
