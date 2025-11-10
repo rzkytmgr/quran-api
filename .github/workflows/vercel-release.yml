@@ -25,43 +25,27 @@ jobs:
           node-version: 20
       
       - name: Installing pnpm
-        run: |
-          npm install -g pnpm@10.10.0
+        run: npm install -g pnpm@10.10.0
 
-      - name: Configure Git
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Prepare release folder
         run: |
+          mkdir release
+          cp -r dist package.json vercel.json pnpm-workspace.yaml pnpm-lock.yaml release/
+
+      - name: Commit and push to release/vercel
+        working-directory: release
+        run: |
+          git init
           git config user.name "$GHBUSER"
           git config user.email "$GHBEMAIL"
-
-      - name: Merge master into release/vercel (force use master content)
-        run: |
-          git fetch origin
-          git checkout release/vercel
-          git merge -s ours origin/release/vercel -m "ci(release/vercel): mark base"
-          git merge origin/master -s recursive -X theirs -m "ci(release/vercel): auto-merge from master to release/vercel"
-
-      - name: Install modules
-        run: |
-          pnpm install
-      
-      - name: Builds
-        run: |
-          pnpm dev:test
-          pnpm dev:format
-          pnpm dev:lint
-          pnpm build
-      
-      - name: Additional Git Commands
-        run: |
-          git add -f dist/
-          if ! git diff --quiet dist/; then
-            git commit -m "ci(release/vercel): builds"
-          else
-            echo "No changes in dist directory"
-          fi
-
-      - name: Push to release/vercel
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release/vercel
+          git add .
+          git commit -m "ci(release/vercel): release build from master"
+          git branch -M release/vercel
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push -f origin release/vercel
