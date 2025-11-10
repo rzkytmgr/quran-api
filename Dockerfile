@@ -1,6 +1,10 @@
 FROM node:20
 WORKDIR /app
-COPY . .
+
+COPY _crawler/ _crawler/
+COPY src/ src/
+COPY __test__/ __test__/
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json .swcrc vitest.config.mjs eslint.config.mjs dprint.json .env.example .
 
 ENV APP_DOCUMENTATION=https://github.com/rzkytmgr/quran-api
 ENV APP_HOST=http://localhost
