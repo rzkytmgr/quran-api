@@ -1,6 +1,6 @@
 {
   "name": "quran-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Static Quran API data",
   "main": "./dist/_server/server.js",
   "scripts": {
