@@ -36,7 +36,7 @@ jobs:
       - name: Prepare release folder
         run: |
           mkdir release
-          cp -r dist package.json vercel.json pnpm-workspace.yaml pnpm-lock.yaml release/
+          cp -r dist package.json vercel.json pnpm-lock.yaml release/
 
       - name: Commit and push to release/vercel
         working-directory: release
