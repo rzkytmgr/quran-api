@@ -36,7 +36,7 @@
   "packageManager": "pnpm@10.10.0",
   "type": "module",
   "dependencies": {
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "ramda": "^0.32.0",
@@ -45,22 +45,22 @@
     "zod": "^3.24.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.26.0",
+    "@eslint/js": "^10.0.1",
     "@swc/cli": "^0.8.0",
     "@swc/core": "^1.15.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
-    "@types/node": "^22.15.3",
+    "@types/node": "^25.6.0",
     "@types/ramda": "^0.31.1",
     "@types/supertest": "^7.2.0",
-    "dprint": "^0.52.0",
-    "eslint": "^9.26.0",
+    "dprint": "^0.54.0",
+    "eslint": "^10.2.1",
     "husky": "^9.1.7",
     "resolve-tspaths": "^0.8.23",
     "supertest": "^7.1.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
-    "typescript": "^5.8.3",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.31.1",
     "vitest": "^3.1.3"
   }
