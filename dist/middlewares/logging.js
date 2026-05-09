@@ -1,0 +1,1 @@
+import{logger}from"../libraries/logger/_logger.js";const logging=(req,res,next)=>{const startTime=Date.now();res.on("finish",()=>{logger.info(JSON.stringify({ip:req.ip,method:req.method,status:res.statusCode,path:req.originalUrl,userAgent:req.get("User-Agent"),latency:Date.now()-startTime+"ms"}))});return next()};export{logging};

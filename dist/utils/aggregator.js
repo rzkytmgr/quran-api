@@ -1,0 +1,1 @@
+import*as R from"ramda";const aggregator=(source,dest)=>{if(Array.isArray(source)&&Array.isArray(dest)){return R.zipWith(R.mergeDeepRight,source,dest)}else{return R.mergeDeepRight(source,dest)}};export{aggregator};

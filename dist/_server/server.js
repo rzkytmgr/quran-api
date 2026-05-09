@@ -1,0 +1,1 @@
+import http from"http";import app from"./app.js";import{constants}from"../utils/constants/_constants.js";const server=http.createServer(app);server.listen(constants.APP_PORT,()=>{console.info(`[🚀] Server Started on ${constants.APP_HOST}:${constants.APP_PORT}`)});

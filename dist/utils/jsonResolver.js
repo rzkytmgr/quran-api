@@ -1,0 +1,1 @@
+import fs from"node:fs";import path from"node:path";const jsonResolver=async filename=>{const filePath=path.resolve("src","db",`${Array.isArray(filename)?filename.join("/"):filename}.db.json`);const fileContent=fs.readFileSync(filePath,"utf-8");return JSON.parse(fileContent)};export{jsonResolver};

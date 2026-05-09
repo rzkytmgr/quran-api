@@ -1,0 +1,67 @@
+{
+  "name": "quran-api",
+  "version": "1.0.4",
+  "description": "Static Quran API data",
+  "main": "./dist/_server/server.js",
+  "scripts": {
+    "dev:format": "dprint fmt --config dprint.json",
+    "dev:format:watch": "watchexec --clear --watch . -e ts,json \"pnpm run dev:format\"",
+    "dev:watch:build": "watchexec --clear --watch . -e ts,json \"pnpm build\"",
+    "dev:lint": "eslint .",
+    "dev:watch": "tsx watch src/_server/server.ts",
+    "dev:watch:crawler": "tsx watch _crawler/crawler.ts",
+    "dev:test": "vitest run --config vitest.config.mjs",
+    "dev:vercel": "vercel dev --listen 5000 -d -A vercel.json",
+    "crawl": "tsx _crawler/crawler.ts",
+    "build": "pnpm build:typecheck && pnpm build:swc",
+    "build:typecheck": "tsc --noEmit --project tsconfig.json",
+    "build:swc": "swc src -d dist --strip-leading-paths",
+    "start": "node --env-file=.env.example .",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "quran",
+    "quran-api",
+    "islamic",
+    "muslim-app"
+  ],
+  "author": {
+    "name": "Rizky Aulia Tumangger",
+    "url": "https://github.com/rzkytmgr"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.10.0",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.16.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "ramda": "^0.32.0",
+    "winston": "^3.17.0",
+    "yocto-spinner": "^0.2.2",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@swc/cli": "^0.8.0",
+    "@swc/core": "^1.15.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1",
+    "@types/node": "^25.6.2",
+    "@types/ramda": "^0.31.1",
+    "@types/supertest": "^7.2.0",
+    "dprint": "^0.54.0",
+    "eslint": "^10.3.0",
+    "husky": "^9.1.7",
+    "resolve-tspaths": "^0.8.23",
+    "supertest": "^7.1.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.1",
+    "vitest": "^3.1.3"
+  }
+}

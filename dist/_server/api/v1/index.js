@@ -1,0 +1,1 @@
+import{router as routes}from"./_routes.js";import{Router}from"express";const router=Router();router.use("/v1",routes);export{router};
