@@ -38,7 +38,7 @@
   "dependencies": {
     "axios": "^1.16.0",
     "cors": "^2.8.5",
-    "express": "^4.21.2",
+    "express": "^4.22.2",
     "ramda": "^0.32.0",
     "winston": "^3.17.0",
     "yocto-spinner": "^0.2.2",
