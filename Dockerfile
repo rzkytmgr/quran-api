@@ -1,4 +1,4 @@
-FROM node:25
+FROM node:26
 WORKDIR /app
 
 COPY _crawler/ _crawler/
