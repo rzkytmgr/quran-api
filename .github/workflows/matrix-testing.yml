@@ -1,4 +1,4 @@
-name: NodeJS version variation testing
+name: NodeJS version matrix testing
 
 on:
   push:
@@ -9,30 +9,35 @@ on:
       - 'master'
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   matrix-test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [20, 22, 24, 25]
-    
-    container: node:${{ matrix.node-version }}
-    
+        node-version: [24, 26]
+
     steps:
       - name: checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: initiate nodejs
+        uses: actions/setup-node@v5
         with:
-          fetch-depth: 0
-    
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
       - name: nodejs version
         run: |
           node -v
 
-      - name: install pnpm
-        run: |
-          npm install -g pnpm
-      
       - name: install dependencies
         run: |
           pnpm install
@@ -40,7 +45,7 @@ jobs:
       - name: testing
         run: |
           pnpm dev:test
-          pnpm dev:format
+          pnpm dev:format:check
           pnpm dev:lint
           pnpm build
           echo "All tests passed!"

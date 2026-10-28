@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# merge and squash commit messages don't follow the commit convention
+if [ "$2" = "merge" ] || [ "$2" = "squash" ]; then
+  exit 0
+fi
+
+printf "\n\033[33mChecking your commit message right now!\033[0m\n"
+
+commit_message=$(cat "$1")
+
+prefix_regex="^(feat|fix|chore|docs|style|refactor|test|perf|ci)"
+suffix_regex="\([^)]+\): .+"
+
+if ! printf '%s\n' "$commit_message" | head -n 1 | grep -Eq "$prefix_regex$suffix_regex"; then
+  printf "\n\033[31mSorry, cannot continue the commit.\n"
+  printf "You must follow commit message rules! (e.g. feat(auth): add login)\033[0m\n\n"
+  exit 1
+fi

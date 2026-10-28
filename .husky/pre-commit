@@ -1,20 +1,19 @@
 #!/bin/sh
+set -e
+
 echo "start pre-commit commands!"
 
 pnpm dev:format
 
-git diff --name-only --cached | while read file; do
+git diff --cached --name-only | while IFS= read -r file; do
   if [ -f "$file" ]; then
-    git add "$file"
+    git add -- "$file"
   else
-    git rm --cached "$file" >/dev/null 2>&1 || true
+    git rm --cached --ignore-unmatch -- "$file" >/dev/null 2>&1 || true
   fi
 done
 
 pnpm dev:test
-
 pnpm dev:lint
-
 pnpm build
-
 echo "You're allowed sir!"
