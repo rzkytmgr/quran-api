@@ -47,7 +47,7 @@
   "packageManager": "pnpm@10.10.0",
   "pnpm": {
     "overrides": {
-      "vite": "7.3.7",
+      "vite": "8.3.5",
       "esbuild": "0.28.1"
     }
   },
@@ -67,8 +67,8 @@
     "@swc/core": "^1.16.20",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^25.9.9",
-    "@types/ramda": "^0.31.1",
+    "@types/node": "^26.6.5",
+    "@types/ramda": "^0.32.0",
     "@types/supertest": "^7.2.1",
     "eslint": "^10.13.0",
     "husky": "^9.1.7",
@@ -79,7 +79,7 @@
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.72.1",
-    "vite": "7.3.7",
-    "vitest": "^4.1.12"
+    "vite": "8.3.5",
+    "vitest": "^5.0.5"
   }
 }
