@@ -1,6 +1,9 @@
 node_modules
-format
 .env
+.env.*
+!.env.example
 .vscode
 dist
 .vercel
+.crawler-progress
+*.writing

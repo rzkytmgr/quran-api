@@ -1,0 +1,816 @@
+openapi: 3.1.0
+info:
+  title: Quran API
+  summary: Static multilingual Quran REST API
+  description: >
+    A fast, static multilingual Quran REST API built with Node.js, TypeScript and Express.
+    Provides all 114 surahs and 6236 ayahs with translations (English and Indonesian),
+    transliteration, and murottal audio links from 32 reciters.
+    Every response is a JSON envelope: `success`, `message`, `data` (and on failures,
+    `error` with validation details).
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://github.com/rzkytmgr/quran-api/blob/master/LICENSE
+  contact:
+    name: Rizky Aulia Tumangger
+    url: https://github.com/rzkytmgr
+
+servers:
+  - url: https://staticquran.vercel.app
+    description: Production (Vercel)
+  - url: http://localhost:3000
+    description: Local development
+
+tags:
+  - name: Reciters
+    description: Quran reciters with per-surah and per-ayah audio folders.
+  - name: Surah
+    description: The 114 surahs, with or without their ayahs.
+  - name: Ayah
+    description: Individual ayahs addressed by their Quran-wide sequence (1-6236).
+
+paths:
+  /api/v1/reciters:
+    get:
+      operationId: getAllReciters
+      summary: Get all reciters
+      tags: [Reciters]
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+      responses:
+        '200':
+          description: All reciters.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReciterListEnvelope' }
+              example:
+                success: true
+                message: Reciters retrieved successfully
+                data:
+                  - id: 1
+                    name: "Abdul Basit 'Abd us-Samad"
+                  - id: 2
+                    name: Abdullah Ibn Ali Basfar
+
+  /api/v1/reciter/{reciter}:
+    get:
+      operationId: getReciterById
+      summary: Get one specific reciter
+      tags: [Reciters]
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/ReciterPath'
+      responses:
+        '200':
+          description: The requested reciter.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReciterEnvelope' }
+              example:
+                success: true
+                message: Reciter retrieved successfully
+                data:
+                  id: 25
+                  name: Yasser Ad-Dosari
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/surah:
+    get:
+      operationId: getAllSurah
+      summary: Get all surah metadata
+      tags: [Surah]
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/LanguageQuery'
+        - $ref: '#/components/parameters/ReciterQuery'
+      responses:
+        '200':
+          description: Metadata list of all 114 surahs (followed by the remaining surahs 3-114).
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SurahListEnvelope' }
+              example:
+                success: true
+                message: Data Retrieved Successfully
+                data:
+                  - sequence: 1
+                    ayahCount: 7
+                    type:
+                      arabic: مكة
+                      latin: Meccan
+                    name:
+                      arabic:
+                        long: سُورَةُ ٱلْفَاتِحَةِ
+                        short: الفاتحة
+                      latin:
+                        long: Sura Al-Faatiha
+                        short: Al-Faatiha
+                    translation: The Opening
+                    tafsir: null
+                    preBismillah:
+                      text: بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                      translation: In the name of Allah, the Entirely Merciful, the Especially Merciful.
+                      transliteration: Bismillaahir Rahmaanir Raheem
+                    recitation:
+                      audio: https://download.quranicaudio.com/quran/yasser_ad-dussary/001.mp3
+                  - sequence: 9
+                    ayahCount: 129
+                    type:
+                      arabic: مدينة
+                      latin: Medinan
+                    name:
+                      arabic:
+                        long: سورة التوبة
+                        short: التوبة
+                      latin:
+                        long: Sura At-Tawba
+                        short: At-Tawba
+                    translation: The Repentance
+                    tafsir: null
+                    preBismillah: false
+                    recitation:
+                      audio: https://download.quranicaudio.com/quran/yasser_ad-dussary/009.mp3
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/v1/surah/{surah}:
+    get:
+      operationId: getSurahWithAyah
+      summary: Get one specific surah including all of its ayahs
+      tags: [Surah]
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/SurahPath'
+        - $ref: '#/components/parameters/LanguageQuery'
+        - $ref: '#/components/parameters/ReciterQuery'
+      responses:
+        '200':
+          description: The surah with its complete ayah list.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SurahWithAyahsEnvelope' }
+              example:
+                $ref: '#/components/examples/SurahWithAyahsExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/surah/{surah}/ayah/{ayah}:
+    get:
+      operationId: getSpecificSurahAyah
+      summary: Get one specific surah including a single ayah
+      tags: [Surah]
+      description: >
+        Returns the surah metadata with its ayah field replaced by the single requested ayah
+        (numbered by its sequence inside that surah, not the Quran-wide sequence).
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/SurahPath'
+        - $ref: '#/components/parameters/AyahPath'
+        - $ref: '#/components/parameters/LanguageQuery'
+        - $ref: '#/components/parameters/ReciterQuery'
+      responses:
+        '200':
+          description: The surah metadata with the requested single ayah.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SurahWithSingleAyahEnvelope' }
+              example:
+                success: true
+                message: Data Retrieved Successfully
+                data:
+                  sequence: 114
+                  ayahCount: 6
+                  type:
+                    arabic: مكة
+                    latin: Meccan
+                  name:
+                    arabic:
+                      long: سورة الناس
+                      short: الناس
+                    latin:
+                      long: Sura An-Naas
+                      short: An-Naas
+                  translation: Mankind
+                  tafsir: null
+                  preBismillah:
+                    text: بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+                    translation: In the name of Allah, the Entirely Merciful, the Especially Merciful.
+                    transliteration: Bismillaahir Rahmaanir Raheem
+                  recitation:
+                    audio: https://download.quranicaudio.com/quran/yasser_ad-dussary/114.mp3
+                  ayah:
+                    $ref: '#/components/examples/AyahExample'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /api/v1/ayah/{ayah}:
+    get:
+      operationId: getQuranAyah
+      summary: Get a specific ayah in the Quran
+      tags: [Ayah]
+      description: Addresses one ayah by its Quran-wide sequence (1-6236). The response also carries the surah number of the ayah.
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/QuranAyahPath'
+        - $ref: '#/components/parameters/LanguageQuery'
+        - $ref: '#/components/parameters/ReciterQuery'
+      responses:
+        '200':
+          description: The requested ayah.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FlatAyahEnvelope' }
+              example:
+                success: true
+                message: Data Retrieved Successfully
+                data:
+                  sequence:
+                    quran: 6231
+                    surah: 1
+                  juz: 30
+                  manzil: 7
+                  page: 604
+                  ruku: 556
+                  hizb: 240
+                  sajda: false
+                  text: قُلْ أَعُوذُ بِرَبِّ النَّاسِ
+                  surah: 114
+                  transliteration: Qul a'uzu birabbin naas
+                  translation: >-
+                    Say, "I seek refuge in the Lord of mankind,
+                  tafsir: null
+                  recitation:
+                    audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114001.mp3
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /api/v1/ayah/random:
+    get:
+      operationId: getRandomAyah
+      summary: Get a random Quran ayah
+      tags: [Ayah]
+      description: Returns a random ayah (1-6236). This endpoint is never served from the response cache.
+      parameters:
+        - $ref: '#/components/parameters/AcceptHeader'
+        - $ref: '#/components/parameters/LanguageQuery'
+        - $ref: '#/components/parameters/ReciterQuery'
+      responses:
+        '200':
+          description: A random ayah (same shape as GET /api/v1/ayah/{ayah}).
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/FlatAyahEnvelope' }
+              example:
+                $ref: '#/components/examples/FlatAyahResponse'
+
+components:
+  parameters:
+    AcceptHeader:
+      name: Accept
+      in: header
+      required: false
+      description: >-
+        Optional. All responses are JSON; production accepts any Accept header.
+        Set `application/json` to be explicit.
+      example: application/json
+      schema:
+        type: string
+    LanguageQuery:
+      name: lang
+      in: query
+      required: false
+      schema:
+        type: string
+        enum: [en, id]
+        default: en
+      description: Language of the translation content. `id` = Bahasa Indonesia, `en` = English.
+      example: id
+    ReciterQuery:
+      name: reciter
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 32
+        default: 25
+      description: ID of the Quran reciter used for audio links. See GET /api/v1/reciters for all IDs. Default is 25 (Yasser Ad-Dosari).
+      example: 17
+    ReciterPath:
+      name: reciter
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 32
+      description: ID of the Quran reciter. See GET /api/v1/reciters for all IDs.
+      example: 25
+    SurahPath:
+      name: surah
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 114
+      description: Surah sequence (1 = Al-Fatihah, 114 = An-Nas).
+      example: 114
+    AyahPath:
+      name: ayah
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 286
+      description: Ayah sequence inside the surah (1 up to that surah's ayahCount).
+      example: 1
+    QuranAyahPath:
+      name: ayah
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 6236
+      description: Quran-wide ayah sequence (1 = first ayah of the Quran, 6236 = last).
+      example: 6231
+
+  responses:
+    BadRequest:
+      description: Invalid query or path parameter.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+          examples:
+            unknownLanguage:
+              summary: Invalid lang value
+              value:
+                success: false
+                message: BAD_REQUEST
+                error:
+                  details:
+                    - path: [lang]
+                      message: "We cannot find language 'zz'"
+                data: null
+            unknownReciter:
+              summary: Unknown reciter id
+              value:
+                success: false
+                message: BAD_REQUEST
+                error:
+                  details:
+                    - path: [reciter]
+                      message: "We cannot find reciter with id '1234'"
+                data: null
+    NotFound:
+      description: Requested resource does not exist.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorEnvelope' }
+          examples:
+            unknownSurah:
+              value:
+                success: false
+                message: NOT_FOUND
+                error:
+                  details:
+                    - path: [surah]
+                      message: "We cannot find surah sequence '1234'."
+                data: null
+            unknownAyahInSurah:
+              value:
+                success: false
+                message: NOT_FOUND
+                error:
+                  details:
+                    - path: [ayah]
+                      message: "We cannot find ayah sequence '12' in surah '114'."
+                data: null
+            unknownReciter:
+              value:
+                success: false
+                message: NOT_FOUND
+                error:
+                  details:
+                    - path: [reciter]
+                      message: "We cannot find reciter '1234'."
+                data: null
+            unknownRoute:
+              summary: Path does not match any route
+              value:
+                success: false
+                message: Not Found
+                error:
+                  details: []
+                data: null
+
+  examples:
+    AyahExample:
+      value:
+        sequence:
+          quran: 6231
+          surah: 1
+        juz: 30
+        manzil: 7
+        page: 604
+        ruku: 556
+        hizb: 240
+        sajda: false
+        text: قُلْ أَعُوذُ بِرَبِّ النَّاسِ
+        transliteration: Qul a'uzu birabbin naas
+        translation: >-
+          Say, "I seek refuge in the Lord of mankind,
+        tafsir: null
+        recitation:
+          audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114001.mp3
+    FlatAyahResponse:
+      value:
+        success: true
+        message: Data Retrieved Successfully
+        data:
+          sequence:
+            quran: 5858
+            surah: 10
+          juz: 30
+          manzil: 7
+          page: 588
+          ruku: 525
+          hizb: 235
+          sajda: false
+          text: وَيْلٌ يَوْمَئِذٍ لِّلْمُكَذِّبِينَ
+          surah: 83
+          transliteration: Wailun yawma'izin lil mukazzibin
+          translation: Woe, that Day, to the deniers,
+          tafsir: null
+          recitation:
+            audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/083010.mp3
+    SurahWithAyahsExample:
+      value:
+        success: true
+        message: Data Retrieved Successfully
+        data:
+          sequence: 114
+          ayahCount: 6
+          type:
+            arabic: مكة
+            latin: Meccan
+          name:
+            arabic:
+              long: سورة الناس
+              short: الناس
+            latin:
+              long: Sura An-Naas
+              short: An-Naas
+          translation: Mankind
+          tafsir: null
+          preBismillah:
+            text: بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            translation: In the name of Allah, the Entirely Merciful, the Especially Merciful.
+            transliteration: Bismillaahir Rahmaanir Raheem
+          recitation:
+            audio: https://download.quranicaudio.com/quran/yasser_ad-dussary/114.mp3
+          ayah:
+            - sequence:
+                quran: 6231
+                surah: 1
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: قُلْ أَعُوذُ بِرَبِّ النَّاسِ
+              transliteration: Qul a'uzu birabbin naas
+              translation: >-
+                Say, "I seek refuge in the Lord of mankind,
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114001.mp3
+            - sequence:
+                quran: 6232
+                surah: 2
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: مَلِكِ النَّاسِ
+              transliteration: Malikin naas
+              translation: The Sovereign of mankind.
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114002.mp3
+            - sequence:
+                quran: 6233
+                surah: 3
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: إِلَٰهِ النَّاسِ
+              transliteration: Ilaahin naas
+              translation: The God of mankind,
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114003.mp3
+            - sequence:
+                quran: 6234
+                surah: 4
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ
+              transliteration: Min sharril was waasil khannaas
+              translation: From the evil of the retreating whisperer -
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114004.mp3
+            - sequence:
+                quran: 6235
+                surah: 5
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ
+              transliteration: Al lazee yuwas wisu fee sudoorin naas
+              translation: Who whispers [evil] into the breasts of mankind -
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114005.mp3
+            - sequence:
+                quran: 6236
+                surah: 6
+              juz: 30
+              manzil: 7
+              page: 604
+              ruku: 556
+              hizb: 240
+              sajda: false
+              text: مِنَ الْجِنَّةِ وَالنَّاسِ
+              transliteration: Minal jinnati wan naas
+              translation: From among the jinn and mankind."
+              tafsir: null
+              recitation:
+                audio: https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/114006.mp3
+
+  schemas:
+    Reciter:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          description: Reciter id.
+        name:
+          type: string
+          description: Reciter display name.
+      required: [id, name]
+
+    ReciterListEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Reciter' }
+      required: [success, message, data]
+
+    ReciterEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data: { $ref: '#/components/schemas/Reciter' }
+      required: [success, message, data]
+
+    PreBismillah:
+      type: object
+      description: The basmala shown before the first ayah of surahs other than 1 and 9.
+      properties:
+        text:
+          type: string
+          description: Arabic text of the basmala.
+        translation:
+          type: string
+        transliteration:
+          type: string
+      required: [text, translation, transliteration]
+
+    Surah:
+      type: object
+      properties:
+        sequence:
+          type: integer
+          minimum: 1
+          maximum: 114
+          description: Surah sequence (1 = Al-Fatihah, 114 = An-Nas).
+        ayahCount:
+          type: integer
+          minimum: 3
+          maximum: 286
+        type:
+          type: object
+          properties:
+            arabic:
+              type: string
+              description: صَمّ or مدنية in Arabic script.
+            latin:
+              type: string
+              enum: [Meccan, Medinan]
+        name:
+          type: object
+          properties:
+            arabic:
+              type: object
+              properties:
+                long: { type: string }
+                short: { type: string }
+            latin:
+              type: object
+              properties:
+                long: { type: string }
+                short: { type: string }
+        translation:
+          type: string
+          description: Surah name translation in the requested language.
+        tafsir:
+          type: [string, 'null']
+          description: Reserved for future use; currently always null.
+        preBismillah:
+          description: Basmala object, or false when the surah has none (surah 1 and 9).
+          oneOf:
+            - type: boolean
+              const: false
+            - $ref: '#/components/schemas/PreBismillah'
+        recitation:
+          type: object
+          properties:
+            audio:
+              type: string
+              format: uri
+              description: Full surah murottal mp3 of the selected reciter.
+      required: [sequence, ayahCount, type, name, translation, tafsir, preBismillah, recitation]
+
+    Ayah:
+      type: object
+      properties:
+        sequence:
+          type: object
+          properties:
+            quran:
+              type: integer
+              minimum: 1
+              maximum: 6236
+              description: Quran-wide ayah sequence.
+            surah:
+              type: integer
+              minimum: 1
+              maximum: 286
+              description: Ayah sequence inside its surah.
+        juz:
+          type: integer
+        manzil:
+          type: integer
+        page:
+          type: integer
+        ruku:
+          type: integer
+        hizb:
+          type: integer
+        sajda:
+          description: false when the ayah has no sajdah, otherwise the sajdah details.
+          oneOf:
+            - type: boolean
+              const: false
+            - type: object
+              properties:
+                recommended: { type: string }
+                obligatory: { type: string }
+        text:
+          type: string
+          description: Arabic ayah text.
+        transliteration:
+          type: string
+          description: Latin transliteration of the ayah.
+        translation:
+          type: string
+          description: Ayah translation in the requested language.
+        tafsir:
+          type: [string, 'null']
+          description: Reserved for future use; currently always null.
+        recitation:
+          type: object
+          properties:
+            audio:
+              type: string
+              format: uri
+              description: Verse-by-verse murottal mp3 of the selected reciter.
+      required: [sequence, juz, manzil, page, ruku, hizb, sajda, text, transliteration, translation, tafsir, recitation]
+
+    FlatAyah:
+      allOf:
+        - $ref: '#/components/schemas/Ayah'
+        - type: object
+          properties:
+            surah:
+              type: integer
+              minimum: 1
+              maximum: 114
+              description: Surah number of the ayah.
+
+    SurahWithAyahs:
+      allOf:
+        - $ref: '#/components/schemas/Surah'
+        - type: object
+          properties:
+            ayah:
+              type: array
+              items: { $ref: '#/components/schemas/Ayah' }
+          required: [ayah]
+
+    SurahWithSingleAyah:
+      allOf:
+        - $ref: '#/components/schemas/Surah'
+        - type: object
+          properties:
+            ayah: { $ref: '#/components/schemas/Ayah' }
+          required: [ayah]
+
+    FlatAyahEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data: { $ref: '#/components/schemas/FlatAyah' }
+      required: [success, message, data]
+
+    SurahListEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data:
+          type: array
+          items: { $ref: '#/components/schemas/Surah' }
+          maxItems: 114
+      required: [success, message, data]
+
+    SurahWithAyahsEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data: { $ref: '#/components/schemas/SurahWithAyahs' }
+      required: [success, message, data]
+
+    SurahWithSingleAyahEnvelope:
+      type: object
+      properties:
+        success: { const: true }
+        message: { type: string }
+        data: { $ref: '#/components/schemas/SurahWithSingleAyah' }
+      required: [success, message, data]
+
+    ErrorEnvelope:
+      type: object
+      properties:
+        success: { const: false }
+        message:
+          type: string
+          description: BAD_REQUEST for validation failures, NOT_FOUND for missing resources, Not Found for unmatched routes.
+        error:
+          type: object
+          properties:
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  path:
+                    type: array
+                    items:
+                      type: [string, integer]
+                  message: { type: string }
+                required: [path, message]
+          required: [details]
+        data:
+          type: 'null'
+      required: [success, message, error, data]

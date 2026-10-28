@@ -3,7 +3,7 @@ import tslint from 'typescript-eslint';
 
 export default tslint.config([
   {
-    ignores: ['node_modules/**', 'dist/**', 'src/db/**'],
+    ignores: ['node_modules/**', 'dist/**'],
   },
   ...tslint.configs.recommended,
   eslint.configs.recommended,

@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["scraper"],
+  "exclude": ["node_modules", "dist"],
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022"
+  }
+}

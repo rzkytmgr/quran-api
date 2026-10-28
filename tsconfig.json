@@ -5,17 +5,11 @@
     "rootDir": "./",
     "baseUrl": "./",
     "paths": {
-      "@test/*": ["__test__/*"],
-      "@server/*": ["src/_server/*"],
-      "@api/*": ["src/_server/api/*"],
-      "@db/*": ["src/db/*"],
-      "@enum/*": ["src/enum/*"],
-      "@interface/*": ["src/interfaces/*"],
-      "@lib/*": ["src/libraries/*"],
-      "@middleware/*": ["src/middlewares/*"],
-      "@service/*": ["src/services/*"],
-      "@util/*": ["src/utils/*"],
-      "@constant/*": ["src/utils/constants/*"]
+      "@config/*": ["src/config/*"],
+      "@core/*": ["src/core/*"],
+      "@dataset/*": ["src/dataset/*"],
+      "@modules/*": ["src/modules/*"],
+      "@shared/*": ["src/shared/*"]
     },
     "resolveJsonModule": true,
     "moduleResolution": "node",
@@ -33,5 +27,5 @@
     "noUnusedParameters": false
   },
   "include": ["src"],
-  "exclude": ["node_modules", "static", "src/db", "_test", "_crawler/**/*", "src/interfaces"]
+  "exclude": ["node_modules", "dist", "data", "test"]
 }
