@@ -17,4 +17,9 @@ describe('dataset resolver', () => {
     expect(() => readDataset('file-does-not-exist')).toThrow();
     expect(() => readDataset(['also', 'accepts', 'array'])).toThrow();
   });
+
+  test('throws when the dataset path escapes the data folder', () => {
+    expect(() => readDataset(['..', 'package.json'])).toThrow(/escapes the data folder/);
+    expect(() => readDataset(['translation', '..', '..', 'package.json'])).toThrow(/escapes the data folder/);
+  });
 });
