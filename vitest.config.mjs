@@ -9,17 +9,12 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@db': path.resolve(__dirname, './src/db'),
-      '@test': path.resolve(__dirname, './__test__'),
-      '@server': path.resolve(__dirname, './src/_server'),
-      '@api': path.resolve(__dirname, './src/_server/api'),
-      '@enum': path.resolve(__dirname, './src/enum'),
-      '@interface': path.resolve(__dirname, './src/interfaces'),
-      '@lib': path.resolve(__dirname, './src/libraries'),
-      '@middleware': path.resolve(__dirname, './src/middlewares'),
-      '@service': path.resolve(__dirname, './src/services'),
-      '@util': path.resolve(__dirname, './src/utils'),
-      '@constant': path.resolve(__dirname, './src/utils/constants'),
+      '@db': path.resolve(__dirname, './data'),
+      '@config': path.resolve(__dirname, './src/config'),
+      '@core': path.resolve(__dirname, './src/core'),
+      '@dataset': path.resolve(__dirname, './src/dataset'),
+      '@modules': path.resolve(__dirname, './src/modules'),
+      '@shared': path.resolve(__dirname, './src/shared'),
     },
   },
 });

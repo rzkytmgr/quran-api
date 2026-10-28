@@ -1,4 +1,7 @@
 onlyBuiltDependencies:
   - '@swc/core'
-  - dprint
   - esbuild
+
+overrides:
+  vite: '>=7.3.7'
+  esbuild: '>=0.28.1'
