@@ -53,7 +53,7 @@
   },
   "type": "module",
   "dependencies": {
-    "axios": "^1.21.0",
+    "axios": "^1.21.1",
     "cors": "^2.8.6",
     "express": "^4.22.3",
     "ramda": "^0.32.0",
